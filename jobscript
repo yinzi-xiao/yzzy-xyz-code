@@ -1,0 +1,21 @@
+#!/bin/bash
+#SBATCH -A C3SE2023-1-7 -p vera
+#SBATCH -C SKYLAKE
+#SBATCH -n 32
+##SBATCH --cpus-per-task=1
+##SBATCH -C MEM512
+#SBATCH -t 0-00:30:00
+
+# load packages and activate environment
+module load SciPy-bundle/2021.05-foss-2021a matplotlib/3.4.2-foss-2021a
+source /cephyr/users/yinzi/Vera/xiao/bin/activate
+
+# # copy files to tmpdisk
+# cp function.py rotatedplanaryz.py test_yzzy.py $TMPDIR
+# cd $TMPDIR
+
+# run the code
+# python3 test_yzzy.py
+python3 test_xyz.py --taskid=${SLURM_ARRAY_TASK_ID}
+# # move output data to own storage
+# cp chi.json num_error_qubit.json $SLURM_SUBMIT_DIR
